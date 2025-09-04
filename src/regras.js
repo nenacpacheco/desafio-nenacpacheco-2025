@@ -12,7 +12,6 @@ function contemNaOrdem(preferencia, brinquedosPessoa) {
 function decidirAdocao(animal, brinquedosPessoa1, brinquedosPessoa2, adotadosPessoa1, adotadosPessoa2) {
   const { tipo, brinquedos } = ANIMAIS[animal];
 
-  // Jabuti "Loco" é especial
   if (animal === "Loco") {
     if (adotadosPessoa1.length > 0 && adotadosPessoa1.length < 3) return 1;
     if (adotadosPessoa2.length > 0 && adotadosPessoa2.length < 3) return 2;
@@ -22,7 +21,7 @@ function decidirAdocao(animal, brinquedosPessoa1, brinquedosPessoa2, adotadosPes
   const pessoa1Ok = contemNaOrdem(brinquedos, brinquedosPessoa1);
   const pessoa2Ok = contemNaOrdem(brinquedos, brinquedosPessoa2);
 
-  // Gatos não podem ser disputados
+
   if (tipo === "gato") {
     if (pessoa1Ok && pessoa2Ok) return "abrigo";
     if (pessoa1Ok && adotadosPessoa1.length < 3) return 1;
@@ -30,7 +29,6 @@ function decidirAdocao(animal, brinquedosPessoa1, brinquedosPessoa2, adotadosPes
     return "abrigo";
   }
 
-  // Cães
   if (pessoa1Ok && pessoa2Ok) return "abrigo";
   if (pessoa1Ok && adotadosPessoa1.length < 3) return 1;
   if (pessoa2Ok && adotadosPessoa2.length < 3) return 2;

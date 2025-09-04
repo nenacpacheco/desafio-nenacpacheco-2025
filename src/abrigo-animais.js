@@ -5,15 +5,14 @@ import { decidirAdocao } from "./regras.js";
 class AbrigoAnimais {
 
   encontraPessoas(brinquedosPessoa1, brinquedosPessoa2, ordemAnimais) {
-    // Valida entradas
     const erroAnimais = validarAnimais(ordemAnimais);
-    if (erroAnimais) return erroAnimais;
+    if (erroAnimais) return { erro: 'Animal inválido', lista: null };
 
     const erroB1 = validarBrinquedos(brinquedosPessoa1);
-    if (erroB1) return erroB1;
+    if (erroB1) return { erro: 'Brinquedo inválido', lista: null };
 
     const erroB2 = validarBrinquedos(brinquedosPessoa2);
-    if (erroB2) return erroB2;
+    if (erroB2) return { erro: 'Brinquedo inválido', lista: null };
 
     const listaAnimais = ordemAnimais.split(",").map(a => a.trim());
     const brinquedos1 = brinquedosPessoa1.split(",").map(b => b.trim());
@@ -37,9 +36,9 @@ class AbrigoAnimais {
       }
     }
 
-    // Ordena alfabeticamente
-    return resultado.sort((a, b) => a.localeCompare(b));
+    // Ordena para padronizar a saída e retorna no formato esperado pelos testes
+    return { erro: false, lista: resultado.sort((a, b) => a.localeCompare(b)) };
   }
 }
 
-export { AbrigoAnimais as AbrigoAnimais };
+export { AbrigoAnimais };
