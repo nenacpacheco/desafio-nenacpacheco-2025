@@ -36,7 +36,7 @@ class AbrigoAnimais {
       }
     }
 
-    // Ordena para padronizar a saída e retorna no formato esperado pelos testes
+
     return { erro: false, lista: resultado.sort((a, b) => a.localeCompare(b)) };
   }
 }

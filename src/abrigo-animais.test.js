@@ -45,5 +45,33 @@ test('Deve adotar um animal quando apenas uma pessoa tem os brinquedos corretos'
   expect(resultado.lista.length).toBe(1);
 });
 
+ test('Loco vai para abrigo se a pessoa não tiver outro animal', () => {
+    const abrigo = new AbrigoAnimais();
+
+    const resultado = abrigo.encontraPessoas(
+      'SKATE,RATO',   
+      'SKATE,RATO',   
+      'Loco'           
+    );
+
+    expect(resultado.erro).toBeFalsy();
+    expect(resultado.lista).toContain('Loco - abrigo');
+    expect(resultado.lista.length).toBe(1);
+  });
+
+  test('Loco é adotado por pessoa que já tem outro animal', () => {
+    const abrigo = new AbrigoAnimais();
+
+    const resultado = abrigo.encontraPessoas(
+      'RATO,BOLA,SKATE',   
+      'SKATE,RATO',        
+      'Rex,Loco'            
+    );
+
+    expect(resultado.erro).toBeFalsy();
+    expect(resultado.lista).toContain('Rex - pessoa 1');
+    expect(resultado.lista).toContain('Loco - pessoa 1');
+    expect(resultado.lista.length).toBe(2);
+  });
 
 });

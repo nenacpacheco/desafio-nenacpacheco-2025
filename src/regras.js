@@ -13,27 +13,28 @@ function decidirAdocao(animal, brinquedosPessoa1, brinquedosPessoa2, adotadosPes
   const { tipo, brinquedos } = ANIMAIS[animal];
 
   if (animal === "Loco") {
-    if (adotadosPessoa1.length > 0 && adotadosPessoa1.length < 3) return 1;
-    if (adotadosPessoa2.length > 0 && adotadosPessoa2.length < 3) return 2;
+    const podePessoa1 = adotadosPessoa1.some(a => a !== "Loco") && adotadosPessoa1.length < 3;
+    const podePessoa2 = adotadosPessoa2.some(a => a !== "Loco") && adotadosPessoa2.length < 3;
+
+    if (podePessoa1 && !podePessoa2) return 1;
+    if (!podePessoa1 && podePessoa2) return 2;
     return "abrigo";
   }
 
-  const pessoa1Ok = contemNaOrdem(brinquedos, brinquedosPessoa1);
-  const pessoa2Ok = contemNaOrdem(brinquedos, brinquedosPessoa2);
-
+  const pessoa1Ok = contemNaOrdem(brinquedos, brinquedosPessoa1) && adotadosPessoa1.length < 3;
+  const pessoa2Ok = contemNaOrdem(brinquedos, brinquedosPessoa2) && adotadosPessoa2.length < 3;
 
   if (tipo === "gato") {
     if (pessoa1Ok && pessoa2Ok) return "abrigo";
-    if (pessoa1Ok && adotadosPessoa1.length < 3) return 1;
-    if (pessoa2Ok && adotadosPessoa2.length < 3) return 2;
+    if (pessoa1Ok) return 1;
+    if (pessoa2Ok) return 2;
     return "abrigo";
   }
 
-  if (pessoa1Ok && pessoa2Ok) return "abrigo";
-  if (pessoa1Ok && adotadosPessoa1.length < 3) return 1;
-  if (pessoa2Ok && adotadosPessoa2.length < 3) return 2;
+  if (pessoa1Ok && pessoa2Ok) return "abrigo"; // empate → abrigo
+  if (pessoa1Ok) return 1;
+  if (pessoa2Ok) return 2;
 
-  return "abrigo";
+  return "abrigo"; 
 }
-
 export { decidirAdocao };
